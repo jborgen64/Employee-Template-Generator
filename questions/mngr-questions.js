@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const Employee = require("../lib/Employee.js")
 //manager questions
 function MngrQuestions(){
     return inquirer.prompt([
@@ -30,16 +31,7 @@ function MngrQuestions(){
   ])
 };
 
-MngrQuestions()
- .then(answers => {
-
-    console.log(answers.name);
-    console.log(answers.id);
-    console.log(answers.email);
-    console.log(answers.officeNumber);
-    console.log(answers.teamNumber);
-   
-});
+module.exports = MngrQuestions()
 
 
 
