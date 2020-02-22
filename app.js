@@ -1,7 +1,8 @@
 const inquirer = require("inquirer");
 
 //manager questions
-    inquirer.prompt([
+    function mngrQuestions() {
+      return inquirer.prompt([
     {
         type: "input",
         message: "Hi manager! What is your name?",
@@ -24,12 +25,33 @@ const inquirer = require("inquirer");
     },
     {
         type: "input",
-        message: "How many team members do you have?",
-        name: "teamNumber"
+        message: "More team members?",
+        name: "more"
     }
   ])
+};
 
-module.exports = inquirer
+//intern questions
+function internQuestions() {
+    return inquirer.prompt([
+  {
+      type: "input",
+      message: "What's your school?",
+      name: "school"
+  },
+])
+};
+
+//engineer questions
+function engineerQuestions() {
+    return inquirer.prompt([
+  {
+      type: "input",
+      message: "What's your github?",
+      name: "github"
+  },
+])
+};
 
 
 
