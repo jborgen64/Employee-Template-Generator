@@ -1,8 +1,7 @@
 const inquirer = require("inquirer");
-const Employee = require("../lib/Employee.js")
+
 //manager questions
-function MngrQuestions(){
-    return inquirer.prompt([
+    inquirer.prompt([
     {
         type: "input",
         message: "Hi manager! What is your name?",
@@ -29,9 +28,11 @@ function MngrQuestions(){
         name: "teamNumber"
     }
   ])
-};
 
-module.exports = MngrQuestions()
+module.exports = inquirer
+
+
+
 
 
 
