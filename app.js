@@ -1,4 +1,9 @@
 const inquirer = require("inquirer");
+const Employee = require("./lib/Employee.js");
+const Manager = require("./lib/Manager.js");
+const Engineer = require("./lib/Engineer.js");
+const Intern = require("./lib/Intern.js");
+const fs = require("fs");
 
 //manager questions
     function mngrQuestions() {
@@ -24,15 +29,24 @@ const inquirer = require("inquirer");
         name: "officeNumber"
     },
     {
-        type: "choices",
+        type: "list",
         message: "More team members?",
         choices: ["yes","no"],
         name: "more"
     }
   ])
+  .then(managerAnswers => {
+      const newManager = new Manager (managerAnswers.name, managerAnswers.id, managerAnswers.email, managerAnswers.officeNumber);
+      console.log(newManager);
+      if (managerAnswers.more==="yes") {
+          roleQuestion();
+      } else {
+          console.log('ello html');
+      }
+  })
 };
 
-//intern questions
+//role questions
 function roleQuestion() {
     return inquirer.prompt([
   {
@@ -42,6 +56,13 @@ function roleQuestion() {
       name: "role"
   },
 ])
+.then(roleAnswer => {
+    if (roleAnswer.role==="engineer") {
+        engineerQuestions();
+    } else {
+        internQuestions();
+    }
+})
 };
 
 //intern questions
@@ -52,7 +73,22 @@ function internQuestions() {
       message: "What's your school?",
       name: "school"
   },
+  {
+    type: "list",
+    message: "More employees?",
+    choices: ["yes", "no"],
+    name: "more"
+},
 ])
+.then(internAnswers => {
+    const newIntern = new Intern(internAnswers.name, internAnswers.id, internAnswers.email,internAnswers.school);
+    console.log(newIntern);
+    if (internAnswers.more==="yes") {
+        roleQuestion();
+    } else {
+        console.log("hello html")
+    }
+})
 };
 
 //engineer questions
@@ -63,9 +99,25 @@ function engineerQuestions() {
       message: "What's your github?",
       name: "github"
   },
+  {
+    type: "list",
+    message: "More employees?",
+    choices: ["yes", "no"],
+    name: "more"
+},
 ])
+.then(engineerAnswers => {
+    const newEngineer = new Engineer(engineerAnswers.name, engineerAnswers.id, engineerAnswers.email, engineerAnswers.github);
+    console.log(newEngineer);
+    if (engineerAnswers.more==="yes") {
+        roleQuestion();
+    } else {
+        console.log("hola html");
+    }
+})
 };
 
+mngrQuestions()
 
 
 
