@@ -24,11 +24,24 @@ const inquirer = require("inquirer");
         name: "officeNumber"
     },
     {
-        type: "input",
+        type: "choices",
         message: "More team members?",
+        choices: ["yes","no"],
         name: "more"
     }
   ])
+};
+
+//intern questions
+function roleQuestion() {
+    return inquirer.prompt([
+  {
+      type: "list",
+      message: "what is this employee's role?",
+      choices: ["engineer", "intern"],
+      name: "role"
+  },
+])
 };
 
 //intern questions
@@ -52,6 +65,7 @@ function engineerQuestions() {
   },
 ])
 };
+
 
 
 
