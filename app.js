@@ -210,17 +210,17 @@ function engineerQuestions() {
     name: "more"
 },
 ])
-.then(engineerAnswers => {
+.then(data => {
 
     //creating new engineer object
-    const engineer = new Engineer(engineer.name, engineer.id, engineer.email, engineer.github);
+    const engineer = new Engineer(data.name, data.id, data.email, data.github);
 
     const teamMember = fs.readFileSync("templates/engineer.html");
 
     teamHTML = teamHTML + "\n" + eval('`'+ teamMember +'`');
 
 
-    if (engineer.more==="yes") {
+    if (data.more==="yes") {
         roleQuestion();
     } else {
         const mainHTML = fs.readFileSync("templates/main.html");
