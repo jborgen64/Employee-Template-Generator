@@ -4,9 +4,45 @@ const Manager = require("./lib/Manager.js");
 const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
 const fs = require("fs");
+const util = require("util");
+
+const writeFileAsync = util.promisify(fs.writeFile);
+
+let teamHTML = "";
+
+//array that will hold all of our employees
+
+
+// //function that will generate main html
+// function generateHTML() {
+   
+//     return `
+//     <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//     <meta charset="UTF-8">
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+//     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+//     <title>SQUAD</title>
+// </head>
+// <body>
+//     <nav class="navbar navbar-warning bg-warning">
+//         <span class="navbar-brand mb-0 h1">My Team</span>
+//       </nav>
+
+//       <div id="employeeContainer"></div>
+
+//       <script src="https://code.jquery.com/jquery.js"></script>
+//       <script src="app.js"></script>
+// </body>
+// </html>
+//   `;
+//   }
 
 //manager questions
-    function mngrQuestions() {
+  
+function mngrQuestions() {
       return inquirer.prompt([
     {
         type: "input",
@@ -35,15 +71,34 @@ const fs = require("fs");
         name: "more"
     }
   ])
-  .then(managerAnswers => {
-      const newManager = new Manager (managerAnswers.name, managerAnswers.id, managerAnswers.email, managerAnswers.officeNumber);
-      console.log(newManager);
-      if (managerAnswers.more==="yes") {
+  .then(data => {
+      //creating new manager object
+      const manager = new Manager (data.name, data.id, data.email, data.officeNumber);
+
+    const teamMember = fs.readFileSync("templates/manager.html");
+
+    teamHTML = teamHTML + "\n" + eval('`'+ teamMember +'`');
+
+      if (data.more==="yes") {
           roleQuestion();
       } else {
-          console.log('ello html');
-      }
-  })
+        const mainHTML = fs.readFileSync("templates/main.html");
+
+        teamHTML = eval('`'+ mainHTML +'`');
+
+        fs.writeFile("output/team.html", teamHTML, function(err) {
+
+            if (err) {
+                return console.log(err);
+            } {
+
+            console.log("success");
+        }
+      });
+
+      };
+  });
+
 };
 
 //role questions
@@ -68,6 +123,21 @@ function roleQuestion() {
 //intern questions
 function internQuestions() {
     return inquirer.prompt([
+        {
+            type: "input",
+            message: "Hi intern! What is your name?",
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "What is your ID?",
+            name: "id"
+        },
+           {
+            type: "input",
+            message: "what is your email?",
+            name: "email"
+  },
   {
       type: "input",
       message: "What's your school?",
@@ -80,13 +150,31 @@ function internQuestions() {
     name: "more"
 },
 ])
-.then(internAnswers => {
-    const newIntern = new Intern(internAnswers.name, internAnswers.id, internAnswers.email,internAnswers.school);
-    console.log(newIntern);
-    if (internAnswers.more==="yes") {
+.then(data => {
+
+    //creating new intern object
+    const intern = new Intern(data.name, data.id, data.email, data.school);
+
+    const teamMember = fs.readFileSync("templates/intern.html");
+
+    teamHTML = teamHTML + "\n" + eval('`'+ teamMember +'`');
+
+    if (data.more==="yes") {
         roleQuestion();
     } else {
-        console.log("hello html")
+        const mainHTML = fs.readFileSync("templates/main.html");
+
+        teamHTML = eval('`'+ mainHTML +'`');
+
+        fs.writeFile("output/team.html", teamHTML, function(err) {
+
+            if (err) {
+                return console.log(err);
+            } {
+
+            console.log("success");
+        }
+      });
     }
 })
 };
@@ -94,6 +182,22 @@ function internQuestions() {
 //engineer questions
 function engineerQuestions() {
     return inquirer.prompt([
+    
+        {
+            type: "input",
+            message: "Hi engineer! What is your name?",
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "What is your ID?",
+            name: "id"
+        },
+        {
+            type: "input",
+            message: "what is your email?",
+            name: "email"
+        },
   {
       type: "input",
       message: "What's your github?",
@@ -107,21 +211,35 @@ function engineerQuestions() {
 },
 ])
 .then(engineerAnswers => {
-    const newEngineer = new Engineer(engineerAnswers.name, engineerAnswers.id, engineerAnswers.email, engineerAnswers.github);
-    console.log(newEngineer);
-    if (engineerAnswers.more==="yes") {
+
+    //creating new engineer object
+    const engineer = new Engineer(engineer.name, engineer.id, engineer.email, engineer.github);
+
+    const teamMember = fs.readFileSync("templates/engineer.html");
+
+    teamHTML = teamHTML + "\n" + eval('`'+ teamMember +'`');
+
+
+    if (engineer.more==="yes") {
         roleQuestion();
     } else {
-        console.log("hola html");
-    }
-})
+        const mainHTML = fs.readFileSync("templates/main.html");
+
+        teamHTML = eval('`'+ mainHTML +'`');
+
+        fs.writeFile("output/team.html", teamHTML, function(err) {
+
+            if (err) {
+                return console.log(err);
+            } {
+
+            console.log("success");
+        }
+      });
+  };
+
+    });
 };
 
+
 mngrQuestions()
-
-
-
-
-
-
-
